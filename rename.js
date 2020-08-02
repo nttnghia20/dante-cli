@@ -24,6 +24,7 @@ vorpal
     fs.stat(inputPathFile, (error, stats) => {
       if (error) {
         this.log("Your file is not found, please try again!");
+        callback();
       }
       else {
         // this.log("Stats object for:" + inputPathFile); 
@@ -35,13 +36,16 @@ vorpal
               // Using methods of the Stats object 
               this.log('File Renamed Successfuly.');
               this.log("Your file is existed and renamed as: " + addedSuffix);
+              callback();
             }
           }
           else
             this.log("Your suffix is empty, please try again!");
+            callback();
         }
         else
           this.log("Your input is not a file, please try again!");
+          callback();
       }
     });
     this.log("Input path: " + inputPath);
