@@ -1,0 +1,14 @@
+var vorpal = require('vorpal')();
+
+vorpal
+      .command('contact', 'Reach me at dante.testgame@gmail.com')
+      .action(function(args, callback) {
+        this.log('Reach me at dante.testgame@gmail.com');
+        callback();
+      });
+
+
+
+vorpal
+    .delimiter('dante$')
+    .show();
