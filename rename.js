@@ -36,7 +36,10 @@ vorpal
 
     function checkFileExist(fileStats) {
       if (fileStats.isFile())
-        vorpal.log('Your file is found and ready to be renamed!');
+        vorpal.log('Your file is valid');
+      else
+        throw (new Error('Your input is not a file!'));
+
     };
 
     function checkFileDirectory(fileStats) {
@@ -46,15 +49,16 @@ vorpal
 
     function checkSuffix() {
       if (inputSuffix != "")
-        vorpal.log("Your suffix is not empty");
+        vorpal.log("Suffix is valid");
+      else
+        throw (new Error('Your suffix is empty!'));
     };
 
     function renameFile(inputPath, fileName, addedSuffix) {
       fs.renameSync(inputPath + '/' + fileName, inputPath + '/' + addedSuffix);
       vorpal.log("Input path: " + inputPath);
       vorpal.log("File name: " + fileName);
-      vorpal.log("Your file is existed and renamed as: " + addedSuffix);
-      vorpal.log('File Renamed Successfuly.');
+      vorpal.log("Your file is renamed as: " + addedSuffix);
     };
     async function doRename() {
       
@@ -68,7 +72,7 @@ vorpal
       }
       catch (err) {
         vorpal.log('Something is wrong! Please recheck!\n', err)
-        
+        callback();
       };
     };
     doRename();
@@ -77,7 +81,3 @@ vorpal
 vorpal
   .delimiter('dante_cli$')
   .show();
-
-// function getFileName (path){
-//   return path.split('\\').pop().split('/').pop();
-// }
