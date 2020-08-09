@@ -3,6 +3,7 @@ var fs = require('fs');
 const prompt = require('prompt-sync')();
 var path = require('path');
 const { triggerAsyncId } = require('async_hooks');
+const { Console } = require('console');
 
 vorpal
   .command('contact', 'Reach me at dante.testgame@gmail.com')
@@ -35,38 +36,39 @@ vorpal
 
     function checkFileExist(fileStats) {
       if (fileStats.isFile())
-        this.log('Your file is found and ready to be renamed!');
+        vorpal.log('Your file is found and ready to be renamed!');
     };
 
     function checkFileDirectory(fileStats) {
       if (!fileStats.isDirectory)
-        this.log('Your input is a file!');
+        vorpal.log('Your input is a file!');
     };
 
     function checkSuffix() {
       if (inputSuffix != "")
-        this.log("Your suffix is not empty");
+        vorpal.log("Your suffix is not empty");
     };
 
     function renameFile(inputPath, fileName, addedSuffix) {
       fs.renameSync(inputPath + '/' + fileName, inputPath + '/' + addedSuffix);
-      this.log('File Renamed Successfuly.');
-      this.log("Input path: " + inputPath);
-      this.log("File name: " + fileName);
-      this.log("Your file is existed and renamed as: " + addedSuffix);
+      vorpal.log("Input path: " + inputPath);
+      vorpal.log("File name: " + fileName);
+      vorpal.log("Your file is existed and renamed as: " + addedSuffix);
+      vorpal.log('File Renamed Successfuly.');
     };
     async function doRename() {
+      
       try {
-        await statPromise(inputPathFile);
-        await checkFileExist(statPromise);
-        await checkFileDirectory(statPromise);
+        const statsFile = await statPromise(inputPathFile);
+        await checkFileExist(statsFile);
+        await checkFileDirectory(statsFile);
         await checkSuffix();
         await renameFile(inputPath, fileName, addedSuffix);
         callback();
       }
       catch (err) {
-        this.log('Something is wrong! Please recheck')
-        callback();
+        vorpal.log('Something is wrong! Please recheck!\n', err)
+        
       };
     };
     doRename();
