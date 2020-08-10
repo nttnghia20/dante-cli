@@ -1,0 +1,10 @@
+Spec
+- I want to make a cli tool to simulate touch input in Android phone to smoke test a game
+    Feature scopes:
+        - Auto launch a specific game
+        - Wait x second
+        - Record a touch at [X,Y] position on phone's screen
+        - Play record
+        - Capture end-screenshot
+Test
+[x] 
